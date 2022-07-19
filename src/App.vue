@@ -1,15 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <!-- <vue-map-state></vue-map-state> -->
+  <!-- <vue-use-state></vue-use-state> -->
+  <home></home>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import VueModule from './pages/1、vuex模块化Store.vue'
+// import VueMapState from './pages/2、mapState辅助函数.vue'
+// import VueUseState from './pages/3、setup中如何使用mapSatate及封装useState.vue'
+import Home from './pages/Home.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    // VueModule,
+    // VueMapState
+    // VueUseState
+    Home
   }
 }
 </script>
