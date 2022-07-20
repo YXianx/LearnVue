@@ -8,7 +8,7 @@
 // import VueModule from './pages/1、vuex模块化Store.vue'
 // import VueMapState from './pages/2、mapState辅助函数.vue'
 // import VueUseState from './pages/3、setup中如何使用mapSatate及封装useState.vue'
-import Home from './pages/7、setup中如何使用mapMutations(直接使用).vue'
+import Home from './pages/8、actions的常用操作.vue'
 
 export default {
   name: 'App',

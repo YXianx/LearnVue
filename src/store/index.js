@@ -51,8 +51,22 @@ const store = createStore({
             return `counter:${state.counter}`
         }
     },
+    // 异步操作都放在actions中去做
     actions:{
-
+        incrementAction({commit},payload){
+            setTimeout(()=>{
+                commit(INCREMENT_N,payload)
+            },1000)
+        },
+        decrementAction({commit},payload){
+            // 由于action执行异步操作，使用promise封装可以知道什么时候异步操作完毕
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    commit("decrement")
+                    resolve("执行完毕")
+                },2000)
+            })
+        }
     },
     // 键值对方式，也可增强写法
     modules:{
