@@ -2,6 +2,8 @@ import {createStore} from "vuex"
 import home from './modules/home'
 import user from './modules/user'
 
+import { INCREMENT_N } from "./mutation-types"
+
 const store = createStore({
     state:{
         rootDesc:"我是来自根Store的变量",
@@ -15,7 +17,14 @@ const store = createStore({
         ]
     },
     mutations:{
-        
+        // 利用常量使得vue文件和store文件的mutations名字一致
+        [INCREMENT_N](state,payload){
+            state.counter += payload.n
+        },
+
+        decrement(state,payload){
+            state.counter -= 1
+        }
     },
     getters:{
         // 总金额
@@ -29,6 +38,17 @@ const store = createStore({
         // 打五折
         currentDiscount(state){
             return 0.5
+        },
+        getBookPriceGreaterN(state,getters){
+            return (n)=>{
+                return state.books.filter(item=>item.price>=n)
+            }
+        },
+        getNameInfo(state){
+            return `name:${state.name}`
+        },
+        getCounterInfo(state){
+            return `counter:${state.counter}`
         }
     },
     actions:{
