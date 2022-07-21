@@ -1,4 +1,5 @@
 import {createStore} from "vuex"
+import axios from 'axios'
 import home from './modules/home'
 import user from './modules/user'
 
@@ -14,7 +15,8 @@ const store = createStore({
             {name:"深入Webpack",price:130,count:5},
             {name:"深入Nodejs",price:20,count:3},
             {name:"深入React",price:100,count:9},
-        ]
+        ],
+        banners:[]
     },
     mutations:{
         // 利用常量使得vue文件和store文件的mutations名字一致
@@ -24,6 +26,13 @@ const store = createStore({
 
         decrement(state,payload){
             state.counter -= 1
+        },
+        increment(state,payload){
+            state.counter += 1
+        },
+
+        addBannerData(state,payload){
+            state.banners = payload
         }
     },
     getters:{
@@ -51,7 +60,8 @@ const store = createStore({
             return `counter:${state.counter}`
         }
     },
-    // 异步操作都放在actions中去做
+    // 异步操作都放在actions中去做,如果请求的内容本身就要存到store的话那直接在actions写即可
+    // 如果在actions中想要调用其他的action函数，context对象中本身有dispatch函数
     actions:{
         incrementAction({commit},payload){
             setTimeout(()=>{
@@ -64,7 +74,18 @@ const store = createStore({
                 setTimeout(()=>{
                     commit("decrement")
                     resolve("执行完毕")
-                },2000)
+                },1000)
+            })
+        },
+        // 在组件内想要知道actions什么时候执行结束的话，action函数就得利用promise，执行结束resolve
+        getBannersDataAction({commit},payload){
+            return new Promise((resolve,reject)=>{
+                axios.get("http://123.207.32.32:8000/home/multidata").then(res=>{
+                    commit("addBannerData",res.data.data.banner.list)
+                    resolve("异步请求banner数据执行完毕")
+                }).catch(err=>{
+                    reject("异步请求执行失败")
+                })
             })
         }
     },
