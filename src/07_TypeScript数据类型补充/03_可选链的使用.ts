@@ -32,3 +32,5 @@ const info: Person = {
 console.log(info.friend?.name);
 console.log(info.friend?.age); 
 console.log(info.friend?.girlFriend?.name);
+
+export {}
